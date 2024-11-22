@@ -7,10 +7,10 @@ OBJECTS = $(SOURCES:.c=.o)
 all: hw1shell
 
 hw1shell: $(OBJECTS)
-    $(CC) $(CFLAGS) -o hw1shell $(OBJECTS)
+	$(CC) $(CFLAGS) -o hw1shell $(OBJECTS)
 
 %.o: %.c
-    $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -I.
 
 clean:
-    rm -f *.o hw1shell5
+	rm -f *.o hw1shell

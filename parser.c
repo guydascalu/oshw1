@@ -3,7 +3,7 @@
 #include "cmds_mngr.h"
 #include "parser.h"
 
-
+/* lut between strings and enums */
 char* g_cmd_strings[] = 
 {
 	[e_cmd_jobs] = "jobs",
@@ -11,6 +11,7 @@ char* g_cmd_strings[] =
 	[e_cmd_exit] = "exit",
 };
 
+/* get the first word from a string not including spaces */
 char* extract_first_word(char* input, int* return_size)
 {
 	// locate first space or newline
@@ -36,6 +37,7 @@ char* extract_first_word(char* input, int* return_size)
 	return input;
 }
 
+/* check is a command ends with '&'*/
 bool get_is_bg(char* user_input)
 {
 	char* p_delim;
@@ -47,6 +49,7 @@ bool get_is_bg(char* user_input)
 	return false;
 }
 
+/* cast the first word into the e_cmd enum */
 e_cmd get_cmd_type(char* user_input)
 {
 	if (user_input == NULL)
@@ -68,6 +71,7 @@ e_cmd get_cmd_type(char* user_input)
 	return e_cmd_external;
 }
 
+/* parse a command string into the command struct */
 void parse_cmd_to_struct(char* input, int input_size, st_command* cmd)
 {
 	cmd->is_background = get_is_bg(input);

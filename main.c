@@ -5,6 +5,7 @@
 #include "cmds_mngr.h"
 #include "parser.h"
 
+/* main */
 int main (void)
 {
     char user_input[MAX_LINE_LENGTH] = {'\0'};
@@ -17,7 +18,7 @@ int main (void)
     {
 		is_need_exec = false;
         printf(TERMINAL_PROMPT);
-        // read line into buffer
+        // read line into struct
 		if (fgets(user_input,MAX_LINE_LENGTH,stdin) == NULL)
 		{
 			printf(INVALID_COMMAND_MSG);
@@ -34,6 +35,7 @@ int main (void)
 				case e_cmd_exit:
 				case e_cmd_external:
 				{
+					// needs handling -> cast into struct
 					if(is_bg)
 					{
 						curr_command = get_bg_ch();

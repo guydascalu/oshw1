@@ -4,13 +4,18 @@
 st_command bg_cmds[MAX_NUM_BG_COMMANDS];
 st_command fg_cmd;
 
-/* set all commands as finished */
+/* set all commands empty */
 void init_cmds (void)
 {
 	for(int i = 0 ; i < MAX_NUM_BG_COMMANDS ; i++)
 	{
 		bg_cmds[i].is_finished = true;
 		bg_cmds[i].num_args=0;
+
+		for(int j = 0 ; j < MAX_NUM_ARGUMENTS ; j++)
+		{
+			bg_cmds[i].cmd_args[j] = 0;
+		}
 	}
 }
 

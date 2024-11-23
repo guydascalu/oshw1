@@ -1,3 +1,3 @@
-#pragma once
+#pragma once 
 
-int get_num(void);
+e_cmd get_cmd_type(char* user_input, int size);

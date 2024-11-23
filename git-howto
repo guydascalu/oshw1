@@ -1,2 +1,6 @@
 git config --global user.email y*********@gmail.com
 git config --global user.name Y*********
+
+download cpp extension
+
+sudo apt-get install build-essential gdb

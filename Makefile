@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror
 
-SOURCES = main.c functions.c
+SOURCES = main.c parser.c cmds_mngr.c
 OBJECTS = $(SOURCES:.c=.o)
 
 all: hw1shell

@@ -1,51 +1,56 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include "defines.h"
-#include "functions.h"
+#include "cmds_mngr.h"
+#include "parser.h"
 
 int main (void)
 {
     char user_input[MAX_LINE_LENGTH] = {'\0'};
-
-    // st_command bg_cmds[MAX_NUM_BG_COMMANDS];
-	// st_command fg_cmd;
-
+	init_cmds();
+	st_command* curr_command = NULL;
+	int command_length = 0;
+	bool is_need_exec = false;
 
     while(true)
     {
+		is_need_exec = false;
         printf(TERMINAL_PROMPT);
         // read line into buffer
-		if ((fgets(user_input,MAX_LINE_LENGTH,stdin) == NULL) /*&& validate_input() */)
+		if (fgets(user_input,MAX_LINE_LENGTH,stdin) == NULL)
 		{
 			printf(INVALID_COMMAND_MSG);
 		}
 		else{
-			// printf("user entered: %s",user_input);
-			e_cmd type = get_cmd_type(user_input,MAX_LINE_LENGTH); 
-
+			command_length = strlen(user_input);
+			bool is_bg = get_is_bg(user_input);
+			e_cmd type = get_cmd_type(user_input); 
+			
 			switch (type)
 			{
-				case e_cmd_none:
-				break;
 				case e_cmd_cd:
-				{
-					printf("TODO: Implement cd :)\n");
-				}
-				break;
 				case e_cmd_jobs:
-				{
-					printf("TODO: Implement jobs :)\n");
-				}
-				break;
 				case e_cmd_exit:
-				{
-					printf("TODO: Implement exit :)\n");
-				}
-				break;
 				case e_cmd_external:
 				{
-					printf("TODO: Implement external :)\n");
+					if(is_bg)
+					{
+						curr_command = get_bg_ch();
+						if(curr_command == NULL)
+						{
+							printf(TOO_MANY_COMMANDS_MSG);
+							break;
+						}
+					}
+					else
+						curr_command = get_fg_ch();
+					
+					parse_cmd_to_struct(user_input,command_length,curr_command);
+					is_need_exec = true;
 				}
+				break;
+				case e_cmd_none:
 				break;
 				case e_cmd_invalid:
 				default:
@@ -54,13 +59,19 @@ int main (void)
 				}
 			}
 
+			if(is_need_exec)
+			{
+
 			// fork and exec command
 
 				// if child, execute command and exit
-				// if parent, store pid and argument in buffer
+				// if parent, store pid and argument in buffer. don't forget!!
+			
+			}
 		}
 
-        // check all oher
+        // check all bg processes and reap them if needed
+		// if reaped, print appropriate prompt 
     }
     return 0;
 }

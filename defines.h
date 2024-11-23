@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 /* ~~~~~~~~~~~~~~~ defines ~~~~~~~~~~~~~~~ */
 
 // prompt strings
@@ -29,13 +30,3 @@ typedef enum
 
     e_cmd_external,
 }e_cmd;
-
-typedef struct
-{
-    bool is_background;
-    bool is_finished;
-	e_cmd cmd_type;
-    int pid;
-    char* command_str;
-}
-st_command;
